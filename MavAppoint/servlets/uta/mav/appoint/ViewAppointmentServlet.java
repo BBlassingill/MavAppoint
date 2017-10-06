@@ -43,7 +43,7 @@ public class ViewAppointmentServlet extends HttpServlet{
 				header = "templates/" + user.getHeader() + ".jsp";
 				Visitor v = new AppointmentVisitor();
 				ArrayList<Object> appointments = user.accept(v,null);
-				if (appointments.size() != 0&&appointments != null){
+				if (appointments.size() != 0 &&appointments != null){
 					session.setAttribute("appointments", appointments);
 				}
 			}

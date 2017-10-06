@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import uta.mav.appoint.beans.Appointment;
 import uta.mav.appoint.login.LoginUser;
+import uta.mav.appoint.visitor.AppointmentVisitor;
 import uta.mav.appoint.visitor.GetNextAppointmentVisitor;
 import uta.mav.appoint.visitor.Visitor;
 
@@ -38,7 +39,7 @@ public class IndexServlet extends HttpServlet{
 				if (appArray != null){
 					Appointment app = (Appointment)appArray.get(0);
 					session.setAttribute("studentapp",app);
-				}
+				}				
 			}
 			catch(Exception e){
 				System.out.println("Index error : " + e);
