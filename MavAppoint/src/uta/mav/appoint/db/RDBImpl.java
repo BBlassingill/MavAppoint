@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import uta.mav.appoint.PrimitiveTimeSlot;
 import uta.mav.appoint.TimeSlotComponent;
+import uta.mav.appoint.beans.Advisor;
 import uta.mav.appoint.beans.AllocateTime;
 import uta.mav.appoint.beans.Appointment;
 import uta.mav.appoint.beans.AppointmentType;
@@ -25,6 +26,7 @@ import uta.mav.appoint.db.command.GetAdvisors;
 import uta.mav.appoint.db.command.GetAppointment;
 import uta.mav.appoint.db.command.GetUserID;
 import uta.mav.appoint.db.command.SQLCmd;
+import uta.mav.appoint.db.command.UpdateAdvisor;
 import uta.mav.appoint.db.command.UpdateAppointment;
 import uta.mav.appoint.flyweight.TimeSlotFlyweightFactory;
 import uta.mav.appoint.helpers.TimeSlotHelpers;
@@ -103,6 +105,19 @@ public class RDBImpl implements DBImplInterface{
 			System.out.printf(sq.toString());
 		}
 		return advisors;
+	}
+	
+	public Boolean updateAdvisor(Advisor a) throws SQLException {
+		Boolean result = false;
+		try{
+			SQLCmd cmd = new UpdateAdvisor(a);
+			cmd.execute();
+			result = (Boolean)(cmd.getResult()).get(0);
+		}
+		catch(Exception e){
+			
+		}
+		return result;
 	}
 	
 	public Boolean deleteAdvisor(String email) throws SQLException {

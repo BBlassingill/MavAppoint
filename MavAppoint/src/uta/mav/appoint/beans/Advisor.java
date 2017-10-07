@@ -7,8 +7,21 @@ public class Advisor implements Serializable {
 	 * JavaBean for Advisors db table
 	 */
 	private static final long serialVersionUID = -3734663824525723817L;
+	int ID;
 	String pname;
 	String advisorEmail;
+	/**
+	 * @return the pname
+	 */
+	public int getID() {
+		return ID;
+	}
+	/**
+	 * @param pname the pname to set
+	 */
+	public void setID(int id) {
+		this.ID = id;
+	}
 	/**
 	 * @return the pname
 	 */

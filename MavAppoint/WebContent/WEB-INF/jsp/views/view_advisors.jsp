@@ -39,7 +39,7 @@
 					<%@ page import="java.util.ArrayList"%>
 					<%@ page import="uta.mav.appoint.beans.Advisor"%>
 					<%@ page import="java.time.*" %>
-					<!-- begin processing appointments  -->
+					<!-- begin processing advisors  -->
 					<% ArrayList<Advisor> array = (ArrayList<Advisor>)session.getAttribute("advisors");
 		    		if (array != null){%>
 						<%for (int i=0;i<array.size();i++){ %>
@@ -59,6 +59,13 @@
 													deleteAdvisor.submit();
 												}
 							}</script>
+							
+							<script> function buttonEdit<%=i%>(){
+											document.getElementById("advisorID").value = "<%=array.get(i).getID()%>";
+											document.getElementById("advisorName").value = 	"<%=array.get(i).getPname()%>";
+											document.getElementById("advisorEmail").value = "<%=array.get(i).getAdvisorEmail()%>";
+											$("#advisorModal").modal();
+							}</script>
 			</div>
 					<%	}
 	    			}%>
@@ -71,9 +78,50 @@
 	</div>
 </div>
 
+<form name=editAdvisor action="manage_advisor" onsubmit="return validate2()"
+	method="post">
+	<div type = "hidden" class="modal fade" id="advisorModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id=addApptTypeLabel">Update
+						Advisor</h4>
+				</div>
+				<div class="modal-body">
+					<!--  <input type="hidden" name=id2 id="id2" readonly> <b>Type:</b><input
+						type="label" name=apptype id="apptype" readonly><br>-->
+					<input type="hidden" name=advisorID id="advisorID" readonly> 
+					<b>Advisor Name: </b><input type="label" name=advisorName id="advisorName" ><br>
+					<b>Email: </b><input type="label" name=advisorEmail id="advisorEmail" ><br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Close</button>
+					<input type="submit" value="Submit">
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
 <script>
 function validate() {
 	return confirm("Are you sure you want to delete this advisor?");
 }
+
+function validate2(){
+	if (document.getElementById("advisorName").value == ""){
+		alert("Name is required.");
+		return false;
+	}
+	
+	if (document.getElementById("advisorEmail").value == ""){
+		alert("Email is required.");
+		return false;
+	}
+	
+}
 </script>
+
+
 <%@include file="templates/footer.jsp" %>

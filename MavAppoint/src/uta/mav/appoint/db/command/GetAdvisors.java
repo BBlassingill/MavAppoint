@@ -17,7 +17,7 @@ public class GetAdvisors extends SQLCmd{
 	@Override
 	public void queryDB(){
 		try{
-			String command = "SELECT pname,ADVISOR_SETTINGS.email FROM USER,ADVISOR_SETTINGS WHERE ROLE=? AND USER.userid = ADVISOR_SETTINGS.userid";
+			String command = "SELECT USER.userid,pname,ADVISOR_SETTINGS.email FROM USER,ADVISOR_SETTINGS WHERE ROLE=? AND USER.userid = ADVISOR_SETTINGS.userid";
 			PreparedStatement statement = conn.prepareStatement(command);
 			statement.setString(1,"advisor");
 			res = statement.executeQuery();	
@@ -32,8 +32,9 @@ public class GetAdvisors extends SQLCmd{
 		Advisor adv = new Advisor();
 		try{
 			while (res.next()){
-				adv.setPname(res.getString(1));
-				adv.setAdvisorEmail(res.getString(2));
+				adv.setID(res.getInt(1));
+				adv.setPname(res.getString(2));
+				adv.setAdvisorEmail(res.getString(3));
 				result.add(adv);
 				adv = new Advisor();
 			}

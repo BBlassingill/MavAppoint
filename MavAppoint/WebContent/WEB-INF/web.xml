@@ -148,6 +148,14 @@
 		<servlet-name>ViewAdvisorsServlet</servlet-name>
 		<url-pattern>/view_advisors</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ManageAdvisorServlet</servlet-name>
+		<servlet-class>uta.mav.appoint.ManageAdvisorServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManageAdvisorServlet</servlet-name>
+		<url-pattern>/manage_advisor</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AddAppointmentServlet</servlet-name>
 		<url-pattern>/add_app_type</url-pattern>

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import uta.mav.appoint.TimeSlotComponent;
+import uta.mav.appoint.beans.Advisor;
 import uta.mav.appoint.beans.AllocateTime;
 import uta.mav.appoint.beans.Appointment;
 import uta.mav.appoint.beans.AppointmentType;
@@ -34,4 +35,5 @@ public interface DBImplInterface {
 	public Boolean createAdvisor(CreateAdvisorBean ca) throws SQLException;	
 	public String addAppointmentType(AdvisorUser user, AppointmentType at) throws SQLException;
 	public Boolean deleteAdvisor(String email) throws SQLException;
+	public Boolean updateAdvisor(Advisor a) throws SQLException;
 }
