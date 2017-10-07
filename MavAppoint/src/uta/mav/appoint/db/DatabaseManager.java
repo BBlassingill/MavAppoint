@@ -33,8 +33,12 @@ public class DatabaseManager {
 		return imp.addUser(set);
 	}
 	
-	public ArrayList<String> getAdvisors() throws SQLException{
+	public ArrayList<Object> getAdvisors() throws SQLException{
 		return imp.getAdvisors();
+	}
+	
+	public Boolean deleteAdvisor(String email) throws SQLException {
+		return imp.deleteAdvisor(email);
 	}
 	
 	public ArrayList<TimeSlotComponent> getAdvisorSchedule(String name) throws SQLException{

@@ -4,6 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import uta.mav.appoint.beans.Advisor;
+import uta.mav.appoint.beans.Appointment;
+
 public class GetAdvisors extends SQLCmd{
 	
 	public GetAdvisors(){
@@ -14,7 +17,7 @@ public class GetAdvisors extends SQLCmd{
 	@Override
 	public void queryDB(){
 		try{
-			String command = "SELECT pname FROM USER,ADVISOR_SETTINGS WHERE ROLE=? AND USER.userid = ADVISOR_SETTINGS.userid";
+			String command = "SELECT pname,ADVISOR_SETTINGS.email FROM USER,ADVISOR_SETTINGS WHERE ROLE=? AND USER.userid = ADVISOR_SETTINGS.userid";
 			PreparedStatement statement = conn.prepareStatement(command);
 			statement.setString(1,"advisor");
 			res = statement.executeQuery();	
@@ -25,14 +28,18 @@ public class GetAdvisors extends SQLCmd{
 	}
 	
 	@Override
-	public void processResult(){
+	public void processResult(){		
+		Advisor adv = new Advisor();
 		try{
 			while (res.next()){
-				result.add(res.getString(1));
+				adv.setPname(res.getString(1));
+				adv.setAdvisorEmail(res.getString(2));
+				result.add(adv);
+				adv = new Advisor();
 			}
 		}
-		catch(SQLException sq){
-			System.out.println(sq.toString());
+		catch(Exception e){
+			System.out.println(e);
 		}
 		
 	}

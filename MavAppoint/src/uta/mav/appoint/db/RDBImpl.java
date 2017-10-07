@@ -92,20 +92,76 @@ public class RDBImpl implements DBImplInterface{
 	}
 	
 	//using command pattern
-	public ArrayList<String> getAdvisors() throws SQLException{
-		ArrayList<String> arraylist = new ArrayList<String>();
+	public ArrayList<Object> getAdvisors() throws SQLException{
+		ArrayList<Object> advisors = new ArrayList<Object>();
 		try{
 			SQLCmd cmd = new GetAdvisors();
 			cmd.execute();
-			ArrayList<Object> tmp = cmd.getResult();
-			for (int i=0;i<tmp.size();i++){
-				arraylist.add(((String)tmp.get(i)));
-			}
+			advisors = cmd.getResult();
 		}
 		catch(Exception sq){
 			System.out.printf(sq.toString());
 		}
-		return arraylist;
+		return advisors;
+	}
+	
+	public Boolean deleteAdvisor(String email) throws SQLException {
+		Boolean result = true;
+		try{
+			Connection conn = this.connectDB();
+			PreparedStatement statement;
+			
+			//First get the userid of the advisor so we can delete them from the users and advising schedule table
+			
+			String command = "SELECT userid FROM advisor_settings where email=?";
+			statement=conn.prepareStatement(command);
+			statement.setString(1,email);
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()){
+				int userId = rs.getInt(1);
+				
+				command = "DELETE FROM advising_schedule where userid=?";
+				statement = conn.prepareStatement(command);
+				statement.setInt(1, userId);
+				statement.executeUpdate();
+				
+				command = "DELETE FROM advisor_settings where userid=?";
+				statement = conn.prepareStatement(command);
+				statement.setInt(1, userId);
+				statement.executeUpdate();
+				
+				command = "DELETE FROM user where userid=?";
+				statement = conn.prepareStatement(command);
+				statement.setInt(1, userId);
+				statement.executeUpdate();
+				
+				command = "select EXISTS (select userid from advising_schedule where userid = ?) OR "
+						+ "EXISTS (select userid from advisor_settings where userid = ?) OR "
+						+ "EXISTS (select userid from user where userid = ?)";
+				statement = conn.prepareStatement(command);
+				statement.setInt(1, userId);
+				statement.setInt(2, userId);
+				statement.setInt(3, userId);
+				ResultSet rs1 = statement.executeQuery();
+								
+				while(rs1.next()){
+					int exists = rs1.getInt(1);
+					
+					if (exists != 1) {
+						result =  true;
+					}
+										
+				}				
+			}
+			
+			conn.close();	
+		}
+		catch(SQLException e){
+			System.out.printf("Error in Database: " + e.toString());
+			return false;
+		}
+		return result;
 	}
 	
 	public ArrayList<TimeSlotComponent> getAdvisorSchedule(String name){
