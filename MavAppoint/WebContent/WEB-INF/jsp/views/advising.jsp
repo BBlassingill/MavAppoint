@@ -1,6 +1,7 @@
 <jsp:include page='<%=(String) request.getAttribute("includeHeader")%>' />
-<% ArrayList<String> array = (ArrayList<String>)session.getAttribute("advisors");
-	if (array != null){ %>	    		
+<%@ page import= "uta.mav.appoint.beans.Advisor" %>
+<%  ArrayList<Advisor> array = (ArrayList<Advisor>)session.getAttribute("advisors");
+	if (array != null){ %>		
 <div class="container">
 	<div class="page-header">
 		<div class="pull-right form-inline">
@@ -17,9 +18,9 @@
 		    						 }
 		    				</script>
 		    			<%	for (int i=0;i<array.size();i++){ %>
-		    					<button type="button" id="button1<%=i%>" onclick="button<%=i%>()"><%=array.get(i)%></button>
+		    					<button type="button" id="button1<%=i%>" onclick="button<%=i%>()"><%=array.get(i).getPname()%></button>
 								<script> function button<%=i%>(){
-										document.getElementById("advisor_button").value = "<%=array.get(i)%>";
+										document.getElementById("advisor_button").value = "<%=array.get(i).getPname()%>";
 										advisor_form.submit();
 								}</script>
 						<%	}%>
@@ -64,38 +65,38 @@
 		    				    	,
 		    						eventClick: function(event,element){
 		    							if (event.id >= 0){
-		    							document.getElementById("id1").value = event.id;
-		    							document.getElementById("pname").value = event.title;
-		    							addAppt.submit();
+			    							document.getElementById("id1").value = event.id;
+			    							document.getElementById("pname").value = event.title;
+			    							addAppt.submit();
 		    							}
 		    							else{
 		    								updateAppt.submit();
 		    							}
 		    						},
 		    					events: [
-		 		    		<% int i = 0;
-									for (i=0;i<schedules.size();i++){%> 
-		 								{
-		 									title:'<%=schedules.get(i).getName()%>',
-		 									start:'<%=schedules.get(i).getDate()+"T"+schedules.get(i).getStartTime()%>',
-		 									end:'<%=schedules.get(i).getDate()+"T"+schedules.get(i).getEndTime()%>',
-		 									id:<%=i%>,
-		 									backgroundColor: 'blue'
-		 								}
-		 								<%if(i != (schedules.size()-1)||appointments != null){%>,<%}%>
-		 					 		<%}	
-									if (appointments != null){
-										for(i=1;i<1+appointments.size();i++){%>
-		 									{
- 												title:'<%=appointments.get(i-1).getAppointmentType()%>',
- 												start:'<%=appointments.get(i-1).getAdvisingDate()+"T"+appointments.get(i-1).getAdvisingStartTime()%>',
- 												end:'<%=appointments.get(i-1).getAdvisingDate()+"T"+appointments.get(i-1).getAdvisingEndTime()%>',
- 												id:<%=-i%>,
- 												backgroundColor: 'orange'
- 											}
- 											<%if(i != appointments.size()){%>,<%}
- 										}
-									}%>		 					 
+				 		    		<% 		int i = 0;
+											for (i=0;i<schedules.size();i++){%> 
+				 								{
+				 									title:'<%=schedules.get(i).getName()%>',
+				 									start:'<%=schedules.get(i).getDate()+"T"+schedules.get(i).getStartTime()%>',
+				 									end:'<%=schedules.get(i).getDate()+"T"+schedules.get(i).getEndTime()%>',
+				 									id:<%=i%>,
+				 									backgroundColor: 'blue'
+				 								}
+				 								<%if(i != (schedules.size()-1)||appointments != null){%>,<%}%>
+				 					 		<%}	
+											if (appointments != null){
+												for(i=1;i<1+appointments.size();i++){%>
+				 									{
+															title:'<%=appointments.get(i-1).getAppointmentType()%>',
+															start:'<%=appointments.get(i-1).getAdvisingDate()+"T"+appointments.get(i-1).getAdvisingStartTime()%>',
+															end:'<%=appointments.get(i-1).getAdvisingDate()+"T"+appointments.get(i-1).getAdvisingEndTime()%>',
+															id:<%=-i%>,
+															backgroundColor: 'orange'
+														}
+														<%if(i != appointments.size()){%>,<%}
+													}
+											}%>		 					 
 		 					 			]<%}%>
 		    					});
 		    				});

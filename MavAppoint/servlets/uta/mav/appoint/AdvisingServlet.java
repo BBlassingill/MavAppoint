@@ -36,7 +36,7 @@ public class AdvisingServlet extends HttpServlet{
 				header = "templates/" + user.getHeader() + ".jsp";
 				//must be logged in to see advisor schedules - safety concern
 				DatabaseManager dbm = new DatabaseManager();
-				ArrayList<String> array =  dbm.getAdvisors();
+				ArrayList<Object> array =  dbm.getAdvisors();
 				if (array.size() != 0){
 					session.setAttribute("advisors", array);
 				}
@@ -50,7 +50,7 @@ public class AdvisingServlet extends HttpServlet{
 				}
 		}
 		catch(Exception e){
-			
+			System.out.println(e.getMessage());
 		}
 		request.setAttribute("includeHeader", header);
 		request.getRequestDispatcher("/WEB-INF/jsp/views/advising.jsp").forward(request, response);
@@ -65,7 +65,7 @@ public class AdvisingServlet extends HttpServlet{
 		try{
 					header = "templates/" + user.getHeader() + ".jsp";
 					DatabaseManager dbm = new DatabaseManager();
-					ArrayList<String> array =  dbm.getAdvisors();
+					ArrayList<Object> array =  dbm.getAdvisors();
 					if (array.size() != 0){
 						session.setAttribute("advisors", array);
 					}					
