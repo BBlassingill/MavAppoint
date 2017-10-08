@@ -1,7 +1,8 @@
 <%@include file="top_header.jsp" %>
 			<div id="navbar">
 				<ul class="nav navbar-nav">
-				<li><a href="create_advisor"><font style="color:#e67e22"> Add New Advisor </font></a></li>
+				<!--  <li><a href="create_advisor"><font style="color:#e67e22"> Create Advisors </font></a></li>-->
+				<li><a href="view_advisors"><font style="color:#e67e22"> View Advisors </font></a></li>
 				<li><a href="appointments"><font style="color:#e67e22">Show Department Schedule</font></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

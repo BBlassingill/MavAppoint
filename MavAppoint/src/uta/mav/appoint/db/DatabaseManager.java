@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import uta.mav.appoint.TimeSlotComponent;
+import uta.mav.appoint.beans.Advisor;
 import uta.mav.appoint.beans.AllocateTime;
 import uta.mav.appoint.beans.Appointment;
 import uta.mav.appoint.beans.AppointmentType;
@@ -33,8 +34,16 @@ public class DatabaseManager {
 		return imp.addUser(set);
 	}
 	
-	public ArrayList<String> getAdvisors() throws SQLException{
+	public ArrayList<Object> getAdvisors() throws SQLException{
 		return imp.getAdvisors();
+	}
+	
+	public Boolean updateAdvisor(Advisor a) throws SQLException {
+		return imp.updateAdvisor(a);
+	}
+	
+	public Boolean deleteAdvisor(String email) throws SQLException {
+		return imp.deleteAdvisor(email);
 	}
 	
 	public ArrayList<TimeSlotComponent> getAdvisorSchedule(String name) throws SQLException{
@@ -86,5 +95,6 @@ public class DatabaseManager {
 	public String addAppointmentType(AdvisorUser user, AppointmentType at) throws SQLException{
 		return imp.addAppointmentType(user, at);
 	}
+	
 }
 
