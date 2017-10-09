@@ -99,6 +99,8 @@
 											}%>		 					 
 		 					 			]<%}%>
 		    					});
+		    					
+		    					$("#calendar td.fc-day").css({"background": "url(img/mavlogo.gif) no-repeat", "background-size": "contain", "opacity": "0.15"});
 		    				});
 	 						</script>	
 		 						
