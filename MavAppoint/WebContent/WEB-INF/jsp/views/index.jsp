@@ -4,6 +4,7 @@
   		<h1> Maverick Advising </h1>
 	</div>
 	<div class="jumbotron">
+		
   		<h3> Departments - </h3>
 			<div class="">
 				<h3><a href="http://www.uta.edu/cappa/">College of Architecture, Planning and Public Affairs</a></h3>
@@ -170,7 +171,16 @@
 				<li><a href="http://fortworth.uta.edu/">UTA Fort Worth</a></li>
 				<li><a href="http://www.uta.edu/utari/">UTA Research Institute (UTARI)</a></li>
 				</ul>
+				
+				<h3>Helpful Links</h3>
+				<div class="">
+				<ul>
+					<li><a href="http://www.uta.edu">UTA Main Site</a></li>
+					<li><a href="http://www.uta.edu/mymav">MyMav</a></li>
+					<li><a href="http://www.outlook.com/mavs.uta.edu">Student Email</a></li>
+				</ul>	
 				</div>
+			</div>
 	
 		</div>
 </div>
