@@ -33,7 +33,7 @@ public class ManageAppointmentServlet extends HttpServlet{
 					header = "templates/" + user.getHeader() + ".jsp";
 					//must be logged in to see advisor schedules - safety concern
 					DatabaseManager dbm = new DatabaseManager();
-					ArrayList<String> array =  dbm.getAdvisors();
+					ArrayList<Object> array =  dbm.getAdvisors();
 					if (array.size() != 0){
 						session.setAttribute("advisors", array);
 					}

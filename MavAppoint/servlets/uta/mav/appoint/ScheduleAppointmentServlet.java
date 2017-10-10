@@ -32,7 +32,7 @@ public class ScheduleAppointmentServlet extends HttpServlet{
 			int id = Integer.parseInt(request.getParameter("id1"));
 			ArrayList<TimeSlotComponent> array = (ArrayList<TimeSlotComponent>)session.getAttribute("schedules");
 			DatabaseManager dbm = new DatabaseManager();
-			ArrayList<AppointmentType> ats = dbm.getAppointmentTypes(request.getParameter("pname"));
+			ArrayList<Object> ats = dbm.getAppointmentTypesByUser(request.getParameter("pname"));
 			session.setAttribute("timeslot", array.get(id));
 			session.setAttribute("appointmenttypes", ats);
 		}

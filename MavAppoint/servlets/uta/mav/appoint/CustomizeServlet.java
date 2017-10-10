@@ -35,7 +35,7 @@ public class CustomizeServlet extends HttpServlet {
 			try{
 					header = "templates/" + user.getHeader() + ".jsp";
 					DatabaseManager dbm = new DatabaseManager();
-					ArrayList<AppointmentType> ats = dbm.getAppointmentTypes(user.getPname());
+					ArrayList<Object> ats = dbm.getAppointmentTypesByUser(user.getPname());
 					session.setAttribute("appointmenttypes", ats);	
 			}
 			catch(Exception e){

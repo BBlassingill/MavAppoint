@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import uta.mav.appoint.PrimitiveTimeSlot;
 import uta.mav.appoint.TimeSlotComponent;
@@ -14,6 +15,7 @@ import uta.mav.appoint.beans.AllocateTime;
 import uta.mav.appoint.beans.Appointment;
 import uta.mav.appoint.beans.AppointmentType;
 import uta.mav.appoint.beans.CreateAdvisorBean;
+import uta.mav.appoint.beans.CreateAppointmentTypeBean;
 import uta.mav.appoint.beans.GetSet;
 import uta.mav.appoint.db.command.AddAppointmentType;
 import uta.mav.appoint.db.command.AddTimeSlot;
@@ -24,10 +26,12 @@ import uta.mav.appoint.db.command.CreateInitialAdvisorSettings;
 import uta.mav.appoint.db.command.DeleteTimeSlot;
 import uta.mav.appoint.db.command.GetAdvisors;
 import uta.mav.appoint.db.command.GetAppointment;
+import uta.mav.appoint.db.command.GetAppointmentTypes;
 import uta.mav.appoint.db.command.GetUserID;
 import uta.mav.appoint.db.command.SQLCmd;
 import uta.mav.appoint.db.command.UpdateAdvisor;
 import uta.mav.appoint.db.command.UpdateAppointment;
+import uta.mav.appoint.db.command.UpdateAppointmentType;
 import uta.mav.appoint.flyweight.TimeSlotFlyweightFactory;
 import uta.mav.appoint.helpers.TimeSlotHelpers;
 import uta.mav.appoint.login.AdminUser;
@@ -121,7 +125,7 @@ public class RDBImpl implements DBImplInterface{
 	}
 	
 	public Boolean deleteAdvisor(String email) throws SQLException {
-		Boolean result = true;
+		Boolean result = false;
 		try{
 			Connection conn = this.connectDB();
 			PreparedStatement statement;
@@ -425,31 +429,6 @@ public class RDBImpl implements DBImplInterface{
 		}
 	}
 	
-	public ArrayList<AppointmentType> getAppointmentTypes(String pname){
-			ArrayList<AppointmentType> ats = new ArrayList<AppointmentType>();
-			try{
-			Connection conn = this.connectDB();
-			PreparedStatement statement;
-			String command = "SELECT type,duration,user.email FROM  appointment_types,advisor_settings,user WHERE appointment_types.userid=advisor_settings.userid AND advisor_settings.userid=user.userid AND advisor_settings.pname=?";
-			statement = conn.prepareStatement(command);
-			statement.setString(1,pname);
-			ResultSet rs = statement.executeQuery();
-			while(rs.next()){
-				AppointmentType at = new AppointmentType();
-				at.setType(rs.getString(1));
-				at.setDuration(rs.getInt(2));
-				at.setEmail(rs.getString(3));
-				ats.add(at);
-			}
-			conn.close();
-		}
-		catch(Exception e){
-			System.out.println(e);
-		}
-		return ats;
-	
-	}
-	
 	public Boolean deleteTimeSlot(AllocateTime at){
 		Boolean b;
 		SQLCmd cmd = new DeleteTimeSlot(at);
@@ -494,13 +473,118 @@ public class RDBImpl implements DBImplInterface{
 	}
 	}
 	
-	public String addAppointmentType(AdvisorUser user, AppointmentType at){
+	public String createAppointmentType(AdvisorUser user, CreateAppointmentTypeBean ca){
 		String msg = null;
 		SQLCmd cmd = new GetUserID(user.getEmail());
 		cmd.execute();
-		cmd = new AddAppointmentType(at, (int)cmd.getResult().get(0));
+		cmd = new AddAppointmentType(ca, (int)cmd.getResult().get(0));
 		cmd.execute();
 		return (String)cmd.getResult().get(0);
 	}
+
+
+	@Override
+	public ArrayList<Object> getAppointmentTypes() throws SQLException {
+		ArrayList<Object> appointmentTypes = new ArrayList<Object>();
+		try{
+			SQLCmd cmd = new GetAppointmentTypes();
+			cmd.execute();
+			appointmentTypes = cmd.getResult();
+		}
+		catch(Exception sq){
+			System.out.printf(sq.toString());
+		}
+		return appointmentTypes;
+	}
+
+	@Override
+	public Boolean updateAppointmentType(List<String> parameters) throws SQLException {
+			Boolean result = false;
+			try{
+				SQLCmd cmd = new UpdateAppointmentType(parameters);
+				cmd.execute();
+				result = (Boolean)(cmd.getResult()).get(0);
+			}
+			catch(Exception e){
+				
+			}
+			return result;
+	}
+	
+
+
+	@Override
+	public ArrayList<Object> getAppointmentTypesByUser(String pname) throws SQLException {
+		ArrayList<Object> ats = new ArrayList<Object>();
+		
+		try{
+			Connection conn = this.connectDB();
+			PreparedStatement statement;
+			String command = "SELECT APPOINTMENT_TYPES.userid,pname,type,duration FROM APPOINTMENT_TYPES,ADVISOR_SETTINGS where ADVISOR_SETTINGS.userid = APPOINTMENT_TYPES.userid and pname=?";
+			statement = conn.prepareStatement(command);
+			statement.setString(1,pname);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()){
+				AppointmentType at = new AppointmentType();
+				at.setUserId(rs.getInt(1));
+				at.setAdvisor(rs.getString(2));
+				at.setType(rs.getString(3));
+				at.setDuration(rs.getInt(4));
+				ats.add(at);
+			}
+		conn.close();
+		}
+		
+		catch(Exception e){
+			System.out.println(e);
+		}
+		
+		return ats;
+	}
+
+
+	@Override
+	public Boolean deleteAppointmentType(AppointmentType a) {
+		Boolean result = false;
+		try{
+			Connection conn = this.connectDB();
+			PreparedStatement statement;
+			
+			int userId = a.getUserId();
+			String type = a.getType();
+			int duration = a.getDuration(); 
+			
+			
+			String command = "DELETE FROM appointment_types where userid=? and type=? and duration=?";
+			statement=conn.prepareStatement(command);
+			statement.setInt(1,userId);
+			statement.setString(2, type);
+			statement.setInt(3, duration);
+			
+			statement.executeUpdate();
+			
+			command = "SELECT * FROM appointment_types where userid=? and type=? and duration=?";
+			statement=conn.prepareStatement(command);
+			statement.setInt(1,userId);
+			statement.setString(2, type);
+			statement.setInt(3, duration);
+			
+			ResultSet rs1 = statement.executeQuery();
+			
+			if(!rs1.first()) {
+				result = true;
+			}
+			
+			
+			conn.close();	
+		}
+		catch(SQLException e){
+			System.out.printf("Error in Database: " + e.toString());
+			return false;
+		}
+		
+		return result;
+	}	
+	
 }
 

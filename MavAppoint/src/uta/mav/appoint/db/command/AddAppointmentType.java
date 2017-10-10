@@ -3,6 +3,7 @@ package uta.mav.appoint.db.command;
 import java.sql.PreparedStatement;
 
 import uta.mav.appoint.beans.AppointmentType;
+import uta.mav.appoint.beans.CreateAppointmentTypeBean;
 import uta.mav.appoint.login.AdminUser;
 import uta.mav.appoint.login.AdvisorUser;
 import uta.mav.appoint.login.FacultyUser;
@@ -15,9 +16,9 @@ public class AddAppointmentType extends SQLCmd {
 		int userid;
 		String resu;
 		
-		public AddAppointmentType(AppointmentType at,int id){
-			type = at.getType();
-			duration = at.getDuration();
+		public AddAppointmentType(CreateAppointmentTypeBean ca,int id){
+			type = ca.getType();
+			duration = ca.getDuration();
 			userid = id;
 			resu = "";
 		}
@@ -32,7 +33,7 @@ public class AddAppointmentType extends SQLCmd {
 				statement.setString(2,type);
 				statement.setInt(3,duration);
 				statement.executeUpdate();
-				resu = "Appointment added.";
+				resu = "Appointment Type added.";
 				}
 			catch (Exception e){
 				System.out.println(e);	

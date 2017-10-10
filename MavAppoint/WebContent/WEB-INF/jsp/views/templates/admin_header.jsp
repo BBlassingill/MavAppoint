@@ -19,9 +19,10 @@
 				<ul class="nav navbar-nav">
 				<!--  <li><a href="create_advisor"><font style="color:#e67e22"> Create Advisors </font></a></li>-->
 				<li><a href="view_advisors"><font style="color:#e67e22"> View Advisors </font></a></li>
+				<li><a href="view_appointment_types"><font style="color:#e67e22"> View Appointment Types </font></a></li>
 				<li><a href="appointments"><font style="color:#e67e22">Show Department Schedule</font></a></li>
-				<div class="nav navbar-nav"><font style="position: relative;left: 34vh;color:#e67e22;top: 5px;font-size: larger;">Current University Time:</font></div>
-				<li id="time" style="color:#e67e22; left: 22vh;top: 22px;position: relative;font-size: large;"><font style="color:#e67e22"></li>
+				<div class="nav navbar-nav"><font style="position: relative;left: 13vh;color:#e67e22;top: 5px;font-size: larger;">Current University Time:</font></div>
+				<li id="time" style="color:#e67e22; left: 1vh;top: 22px;position: relative;font-size: large;"><font style="color:#e67e22"></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 				

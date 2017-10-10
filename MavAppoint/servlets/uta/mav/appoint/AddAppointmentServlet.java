@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import uta.mav.appoint.beans.AppointmentType;
 import uta.mav.appoint.db.DatabaseManager;
 import uta.mav.appoint.login.LoginUser;
-import uta.mav.appoint.visitor.AddAppointmentTypeVisitor;
+import uta.mav.appoint.visitor.CreateAppointmentTypeVisitor;
 import uta.mav.appoint.visitor.Visitor;
 
 public class AddAppointmentServlet extends HttpServlet {
@@ -36,7 +36,7 @@ public class AddAppointmentServlet extends HttpServlet {
 						AppointmentType at = new AppointmentType();
 						at.setType(request.getParameter("apptypes"));
 						at.setDuration(Integer.parseInt(request.getParameter("minutes")));
-						Visitor v = new AddAppointmentTypeVisitor();
+						Visitor v = new CreateAppointmentTypeVisitor();
 						user.accept(v,(Object)at);
 						String msg = user.getMsg();
 						response.setContentType("text/plain");

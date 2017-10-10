@@ -3,6 +3,7 @@ package uta.mav.appoint.db;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import uta.mav.appoint.TimeSlotComponent;
 import uta.mav.appoint.beans.Advisor;
@@ -10,6 +11,7 @@ import uta.mav.appoint.beans.AllocateTime;
 import uta.mav.appoint.beans.Appointment;
 import uta.mav.appoint.beans.AppointmentType;
 import uta.mav.appoint.beans.CreateAdvisorBean;
+import uta.mav.appoint.beans.CreateAppointmentTypeBean;
 import uta.mav.appoint.beans.GetSet;
 import uta.mav.appoint.login.AdminUser;
 import uta.mav.appoint.login.AdvisorUser;
@@ -28,12 +30,15 @@ public interface DBImplInterface {
 	public LoginUser checkUser(GetSet set) throws SQLException;
 	public String addTimeSlot(AllocateTime at) throws SQLException;
 	public Connection connectDB();
-	public ArrayList<AppointmentType> getAppointmentTypes(String pname) throws SQLException;
+	public ArrayList<Object> getAppointmentTypes() throws SQLException;
 	public Boolean updateAppointment(Appointment a);
 	public Boolean deleteTimeSlot(AllocateTime at) throws SQLException;
 	public Appointment getAppointment(String d, String e) throws SQLException;
 	public Boolean createAdvisor(CreateAdvisorBean ca) throws SQLException;	
-	public String addAppointmentType(AdvisorUser user, AppointmentType at) throws SQLException;
+	public String createAppointmentType(AdvisorUser user, CreateAppointmentTypeBean ca) throws SQLException;
 	public Boolean deleteAdvisor(String email) throws SQLException;
 	public Boolean updateAdvisor(Advisor a) throws SQLException;
+	public Boolean updateAppointmentType(List<String> parametersToUpdate) throws SQLException;
+	public ArrayList<Object> getAppointmentTypesByUser(String pname) throws SQLException;
+	public Boolean deleteAppointmentType(AppointmentType a);
 }

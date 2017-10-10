@@ -163,6 +163,30 @@
 		<servlet-name>AddAppointmentServlet</servlet-name>
 		<servlet-class>uta.mav.appoint.AddAppointmentServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ManageAppointmentTypeServlet</servlet-name>
+		<servlet-class>uta.mav.appoint.ManageAppointmentTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManageAppointmentTypeServlet</servlet-name>
+		<url-pattern>/manage_appointment_type</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ViewAppointmentTypesServlet</servlet-name>
+		<servlet-class>uta.mav.appoint.ViewAppointmentTypesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ViewAppointmentTypesServlet</servlet-name>
+		<url-pattern>/view_appointment_types</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CreateAppointmentTypeServlet</servlet-name>
+		<servlet-class>uta.mav.appoint.CreateAppointmentTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateAppointmentTypeServlet</servlet-name>
+		<url-pattern>/create_appointment_type</url-pattern>
+	</servlet-mapping>
     <servlet-mapping>
     <servlet-name>HelpServlet</servlet-name>
     <url-pattern>/help</url-pattern>

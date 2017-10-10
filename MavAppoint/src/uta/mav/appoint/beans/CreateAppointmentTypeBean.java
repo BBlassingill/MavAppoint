@@ -1,32 +1,35 @@
 package uta.mav.appoint.beans;
 
-import java.io.Serializable;
-
-public class AppointmentType implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6325941024133099928L;
-	int userId;
+public class CreateAppointmentTypeBean {
+	int id;
 	String type;
 	int duration;
 	String email;
 	String advisor;
-	
-	
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	/**
 	 * @return the id
 	 */
-	public int getUserId() {
-		return userId;
+	public int getId() {
+		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setUserId(int id) {
-		this.userId = id;
+	public void setId(int id) {
+		this.id = id;
 	}
-	
 	/**
 	 * @return the type
 	 */
@@ -52,22 +55,10 @@ public class AppointmentType implements Serializable{
 		this.duration = duration;
 	}
 	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	/**
 	 * @param advisor the advisor to set
 	 */
 	public void setAdvisor(String advisor) {
-		this.advisor = advisor;
+		this.email = email;
 	}
 	/**
 	 * @return the advisor
@@ -75,4 +66,6 @@ public class AppointmentType implements Serializable{
 	public String getAdvisor() {
 		return advisor;
 	}
+	
 }
+

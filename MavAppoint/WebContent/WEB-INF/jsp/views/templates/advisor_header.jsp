@@ -21,8 +21,9 @@
 				<li><a href="appointments"><font style="color:#e67e22"> Appointments</font> </a></li>
 				<li><a href="advising"><font style="color:#e67e22"> Show Schedule </font></a></li>
 				<li><a href="customize"><font style="color:#e67e22">Customize Settings</font></a></li>
-								<div class="nav navbar-nav"><font style="position: relative;left: 12vh;color:#e67e22;top: 5px;font-size: larger;">Current University Time:</font></div>
+				<div class="nav navbar-nav"><font style="position: relative;left: 12vh;color:#e67e22;top: 5px;font-size: larger;">Current University Time:</font></div>
 				<li id="time" style="color:#e67e22; left: 0vh;top: 22px;position: relative;font-size: large;"><font style="color:#e67e22"></li>
+				<li><a href="view_appointment_types"><font style="position: relative;color:#e67e22;left: 39vh;top: -1vh;"> View Appointment Types </font></a></li>				
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 				
